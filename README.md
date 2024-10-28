@@ -155,7 +155,9 @@ Download
 	
 
 ### **6.2. Genome alignment with hisat2:**
-Single-End RNA-seq  (e.g., Soybean)
+#### **Single-End RNA-seq  (e.g., Soybean):**
+
+
 If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF"
 
 
@@ -168,7 +170,9 @@ If the RNA-seq library is not strand-specific
     for i in `cat sra.list`; do hisat2 --new-summary -p 10 -x genome.index ${i}_clean.fastq -S ${i}.sam; done
 
 	
-Paired-End RNA-seq
+#### **Paired-End RNA-seq:**
+
+
  If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF"
 
  
