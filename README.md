@@ -240,7 +240,7 @@ If not strand-specific, remove the parameter "--rf".
 
 	
 ### **8.2. Identification of lncRNA with PlantLncBoost.**	
-## **8.2.1. Dependencies:**
+#### **8.2.1. Dependencies:**
     Python (>=3.7.3)
     Biopython
     NumPy
@@ -249,12 +249,12 @@ If not strand-specific, remove the parameter "--rf".
     CatBoost
 
 
-## **8.2.2. Usage.**
+#### **8.2.2. Usage.**
 
-### **Feature extraction.**
+#### **Feature extraction.**
     python PlantLncBoost/Script/Feature_extraction.py -i candidate_transcript.fasta -o PlantLncBoost_feature.csv
 	
-### **LncRNA prediction.**
+#### **LncRNA prediction.**
 In the second column (Predicted_label) of the result file, 1 represents lncRNA and 0 represents mRNA.
 
     python PlantLncBoost/Script/PlantLncBoost_prediction.py -i PlantLncBoost_feature.csv -m ./PlantLncBoost/Model/PlantLncBoost_model.cb -t 0.5 -o PlantLncBoost_prediction.csv
