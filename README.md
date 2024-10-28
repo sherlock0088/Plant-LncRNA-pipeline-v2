@@ -95,6 +95,8 @@ LncFinder-plant R Package
 	
 ## **3. Download Example Data (Soybean Data as an Example):**
 
+
+
 ### **3.1. Genome Assembly and Annotation File
 Download the genome assembly fasta file and gff file from Phytozome 13 for Glycine max Wm82.a6.v1.
 
