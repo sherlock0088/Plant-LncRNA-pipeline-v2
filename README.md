@@ -98,11 +98,13 @@ LncFinder-plant R Package
 
 
 ### **3.1. Genome Assembly and Annotation File:**
-Download the genome assembly fasta file and gff file from Phytozome 13 for Glycine max Wm82.a6.v1.
+    Download the genome assembly fasta file and gff file from Phytozome 13 for Glycine max Wm82.a6.v1.
 
 
 ### **3.2. Download Transcriptome Sequencing Data:**
-Example content of sra.list file:
+Example content of sra.list file
+
+
     SRR1174214
     SRR1174217
     SRR1174218
@@ -113,6 +115,8 @@ Example content of sra.list file:
 
  
 Download
+
+
     prefetch --option-file sra.list
 	
 	
@@ -147,23 +151,33 @@ Download
 
 ### **6.2. Genome alignment with hisat2:**
 Single-End RNA-seq  (e.g., Soybean)
- If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF"
+If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF"
+
+
     for i in `cat sra.list`; do hisat2 --new-summary --rna-strandness RF -p 10 -x genome.index ${i}_clean.fastq -S ${i}.sam; done
-	
- If the RNA-seq library is not strand-specific
+
+ 
+If the RNA-seq library is not strand-specific
+
+
     for i in `cat sra.list`; do hisat2 --new-summary -p 10 -x genome.index ${i}_clean.fastq -S ${i}.sam; done
 
 	
 Paired-End RNA-seq
  If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF"
+
+ 
     for i in `cat sra.list`; do hisat2 --new-summary --rna-strandness RF -p 10 -x genome.index -1 ${i}_1_clean.fastq -2 ${i}_2_clean.fastq -S${i}.sam; done
 	
  If the RNA-seq library is not strand-specific
+
+ 
     for i in `cat sra.list`; do hisat2 --new-summary -p 10 -x genome.index -1 ${i}_1_clean.fastq -2 ${i}_2_clean.fastq -S ${i}.sam; done
 
 	
 	
 ### **6.3. Sort and compress sam files with samtools:**
+
     for i in `cat sra.list`; do samtools view -S -b ${i}.sam | samtools sort -o ${i}.bam; done
 	
 
@@ -174,20 +188,26 @@ Paired-End RNA-seq
 ### **7.1. Format of Glycine_max_longest.gtf:**
     Gm01	phytozomev13	exon 	103572	103594	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2" 
     Gm01	phytozomev13	CDS 	103572	103594	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"
-	Gm01	phytozomev13	exon 	103222	103288	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"	
-	Gm01	phytozomev13	CDS 	103222	103288	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"	
+    Gm01	phytozomev13	exon 	103222	103288	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"	
+    Gm01	phytozomev13	CDS 	103222	103288	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"	
     Gm01	phytozomev13	exon	102790	102857	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"	
-    Gm01	phytozomev13	CDS		102790	102857	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2";	
+    Gm01	phytozomev13	CDS	102790	102857	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2";	
     Gm01	phytozomev13	exon	78986	79111	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2";	
-    Gm01	phytozomev13	CDS		78986	79111	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2";	
+    Gm01	phytozomev13	CDS	78986	79111	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2";	
 
 	
 	
 ### **7.2. Transcription reconstruction of a single sample:**
+
 If strand-specific, add the parameter "--rf"
+
+
 	for i in `cat sra.list`; do stringtie -p 10 --rf -G Glycine_max_longest.gtf  -o ${i}.gtf  ${i}.bam; done
-	
+
+ 
 If not strand-specific, remove the parameter "--rf"
+
+
     for i in `cat sra.list`; do stringtie  -p 10 -G Glycine_max_longest.gtf -o ${i}.gtf  ${i}.bam; done
 	
 	
