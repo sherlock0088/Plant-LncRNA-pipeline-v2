@@ -158,13 +158,13 @@ Download
 #### **Single-End RNA-seq  (e.g., Soybean):**
 
 
-If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF"
+If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF".
 
 
     for i in `cat sra.list`; do hisat2 --new-summary --rna-strandness RF -p 10 -x genome.index ${i}_clean.fastq -S ${i}.sam; done
 
  
-If the RNA-seq library is not strand-specific
+If the RNA-seq library is not strand-specific, remove  the parameter "--rna-strandness RF".
 
 
     for i in `cat sra.list`; do hisat2 --new-summary -p 10 -x genome.index ${i}_clean.fastq -S ${i}.sam; done
@@ -173,12 +173,12 @@ If the RNA-seq library is not strand-specific
 #### **Paired-End RNA-seq:**
 
 
- If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF"
+ If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF".
 
  
     for i in `cat sra.list`; do hisat2 --new-summary --rna-strandness RF -p 10 -x genome.index -1 ${i}_1_clean.fastq -2 ${i}_2_clean.fastq -S${i}.sam; done
 	
- If the RNA-seq library is not strand-specific
+ If the RNA-seq library is not strand-specific, remove  the parameter "--rna-strandness RF".
 
  
     for i in `cat sra.list`; do hisat2 --new-summary -p 10 -x genome.index -1 ${i}_1_clean.fastq -2 ${i}_2_clean.fastq -S ${i}.sam; done
@@ -208,13 +208,13 @@ If the RNA-seq library is not strand-specific
 	
 ### **7.2. Transcription reconstruction of a single sample:**
 
-If strand-specific, add the parameter "--rf"
+If strand-specific, add the parameter "--rf".
 
 
 	for i in `cat sra.list`; do stringtie -p 10 --rf -G Glycine_max_longest.gtf  -o ${i}.gtf  ${i}.bam; done
 
  
-If not strand-specific, remove the parameter "--rf"
+If not strand-specific, remove the parameter "--rf".
 
 
     for i in `cat sra.list`; do stringtie  -p 10 -G Glycine_max_longest.gtf -o ${i}.gtf  ${i}.bam; done
@@ -240,7 +240,7 @@ If not strand-specific, remove the parameter "--rf"
 
 	
 ### **8.2. Identification of lncRNA with PlantLncBoost:**	
-## **8.2.1. Dependencies
+## **8.2.1. Dependencies:**
     Python (>=3.7.3)
     Biopython
     NumPy
@@ -249,13 +249,13 @@ If not strand-specific, remove the parameter "--rf"
     CatBoost
 
 
-## **8.2.2. Usage
+## **8.2.2. Usage:**
 
 ### **Feature extraction:**
     python PlantLncBoost/Script/Feature_extraction.py -i candidate_transcript.fasta -o PlantLncBoost_feature.csv
 	
 ### **LncRNA prediction:**
-In the second column (Predicted_label) of the result file, 1 represents lncRNA and 0 represents mRNA
+In the second column (Predicted_label) of the result file, 1 represents lncRNA and 0 represents mRNA.
 
     python PlantLncBoost/Script/PlantLncBoost_prediction.py -i PlantLncBoost_feature.csv -m ./PlantLncBoost/Model/PlantLncBoost_model.cb -t 0.5 -o PlantLncBoost_prediction.csv
 
@@ -275,7 +275,7 @@ import training data
     lncRNA <- seqinr::read.fasta(file ="./data/training/lncRNA.fasta")
     
     
-Use "make_frequencies" function to generate the feature file.
+Use "make_frequencies" function to generate the feature file
 
     frequencies <- make_frequencies(cds.seq = mRNA, lncRNA.seq = lncRNA, SS.features = FALSE, cds.format = "DNA", lnc.format = "DNA", check.cds = TRUE, ignore.illegal = TRUE)	
 	
