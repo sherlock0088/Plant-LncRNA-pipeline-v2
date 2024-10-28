@@ -62,13 +62,18 @@
 ### **2.4. Install CPAT-plant and LncFinder-plant:**
     git clone https://github.com/xuechantian/Plant-LncRNA-pipline.git
 
+
 CPAT (version 1.2.4)
+
+
     conda create -n py27 python=2.7 -y
     source activate py27
     pip2 install CPAT
 
-	
+
+ 
 LncFinder-plant R Package
+
  
     install.packages("LncFinder")
     install.package("seqinr")
