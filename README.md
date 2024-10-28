@@ -79,7 +79,7 @@ LncFinder-plant R Package
      conda install -c bioconda diamond
      
      
-	 
+
 ### **2.6. Install FEELnc:**
     git clone https://github.com/tderrien/FEELnc.git
     export FEELNCPATH=/path/FEELnc/bin/
@@ -109,12 +109,15 @@ Example content of sra.list file:
     SRR1174218
     SRR1174232
     ......
-	
+
+
+ 
 Download
     prefetch --option-file sra.list
 	
 	
-	
+
+ 
 ## **4. Convert sra to fastq:**
     fastq-dump SRR1174214.sra
     fastq-dump SRR1174217.sra
