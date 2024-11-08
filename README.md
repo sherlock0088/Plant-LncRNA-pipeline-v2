@@ -1,6 +1,6 @@
 # Plant-LncRNA-pipeline-v2
 
-![LncRNA pipline](https://github.com/xuechantian/Plant-LncRNA-pipeline-v2.git/Plant-LncPipeV2.workflow.png) 
+![LncRNA pipline-V2](https://github.com/xuechantian/Plant-LncRNA-pipeline-v2/blob/master/Plant-LncPipeV2.workflow.png) 
 
 
 
