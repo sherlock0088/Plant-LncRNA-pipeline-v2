@@ -53,13 +53,9 @@
     tar xzf stringtie-2.1.4.Linux_x86_64.tar.gz
     export PATH=$PATH:/path/stringtie-2.1.6.Linux_x86_64/
 
-	
-### **2.3. Install PlantLncBoost**
-    git clone https://github.com/xuechantian/PlantLncBoost.git
-
 
 	
-### **2.4. Install CPAT-plant and LncFinder-plant**
+### **2.3. Install CPAT-plant and LncFinder-plant**
     git clone https://github.com/xuechantian/Plant-LncRNA-pipline.git
 
 
@@ -80,12 +76,12 @@ LncFinder-plant R Package
 	
 	
 	
-### **2.5. Install Diamond**
+### **2.4. Install Diamond**
      conda install -c bioconda diamond
      
      
 
-### **2.6. Install FEELnc**
+### **2.5. Install FEELnc**
     git clone https://github.com/tderrien/FEELnc.git
     export FEELNCPATH=/path/FEELnc/bin/
     export PERL5LIB=$PERL5LIB:/path/FEELnc/lib/
@@ -93,7 +89,7 @@ LncFinder-plant R Package
 
 	
 	
-### **2.7. Install fastp**
+### **2.6. Install fastp**
     conda install -c bioconda fastp	
 	
 	
@@ -257,8 +253,8 @@ If not strand-specific, remove the parameter "--rf".
 #### **LncRNA prediction**
 In the second column (Predicted_label) of the result file, 1 represents lncRNA and 0 represents mRNA.
 
-    python PlantLncBoost/Script/PlantLncBoost_prediction.py -i PlantLncBoost_feature.csv -m ./PlantLncBoost/Model/PlantLncBoost_model.cb -t 0.5 -o PlantLncBoost_prediction.csv
-
+    python PlantLncBoost/Script/PlantLncBoost_prediction.py -i PlantLncBoost_feature.csv -m PlantLncBoost/Model/PlantLncBoost_model.cb -t 0.5 -o PlantLncBoost_prediction.csv
+    
 	
 ### **8.3.  Identification of lncRNA with LncFinder-plant**	
 
