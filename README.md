@@ -21,7 +21,7 @@ A pipeline for identifying and characterizing lncRNAs in plants.
   - [3.4. Install Diamond](#34-install-diamond)
   - [3.5. Install FEELnc](#35-install-feelnc)
   - [3.6. Install fastp](#36-install-fastp)
-- [4. Download Example Data (Soybean Data as an Example)](#4-download-example-data)
+- [4. Download Example Data](#4-download-example-data)
 - [5. Data Processing](#5-data-processing)
   - [5.1. Convert SRA to FASTQ](#51-convert-sra-to-fastq)
   - [5.2. Data Filtering and Quality Control](#52-data-filtering-and-quality-control)
@@ -121,7 +121,7 @@ LncFinder-plant R Package
 	
 	
 	
-## 4. Download Example Data (Soybean Data as an Example)
+## 4. Download Example Data
 
 
 
