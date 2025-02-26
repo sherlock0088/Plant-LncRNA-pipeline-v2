@@ -265,7 +265,7 @@ If not strand-specific, remove the parameter "--rf".
 
 	
 ### 8.2. Identification Using PlantLncBoost
-#### Dependencies
+### Dependencies
     Python (>=3.7.3)
     Biopython
     NumPy
@@ -274,7 +274,7 @@ If not strand-specific, remove the parameter "--rf".
     CatBoost
 
 
-#### run PlantLncBoost
+### run PlantLncBoost
 
 #### Feature extraction
     python PlantLncBoost/Script/Feature_extraction.py -i candidate_transcript.fasta -o PlantLncBoost_feature.csv
