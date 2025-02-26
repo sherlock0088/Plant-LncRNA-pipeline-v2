@@ -48,18 +48,11 @@ Plant-LncPipe-v2 is a comprehensive pipeline designed to identify and characteri
 
 ---
 
-### **An enhanced pipeline (pipline V2) for identifying and characterizing lncRNAs in plants..**
-
-#### **Email:** xuechan.tian@bjfu.edu.cn;  jianfeng.mao@umu.se
 
 
 
 
-
-
-
-
-## **1. Dependencies** 
+## **2. Dependencies** 
 
 
 
@@ -73,25 +66,25 @@ Plant-LncPipe-v2 is a comprehensive pipeline designed to identify and characteri
 
 
 
-## **2.Installation**
+## **3.Installation**
 
 
 
-### **2.1. Install HISAT2**
+### **3.1. Install HISAT2**
     git clone https://github.com/DaehwanKimLab/hisat2.git
     cd hisat2
     make
 
 
 
-### **2.2. Install StringTie**
+### **3.2. Install StringTie**
     wget https://github.com/gpertea/stringtie/releases/download/v2.1.4/stringtie-2.1.4.Linux_x86_64.tar.gz
     tar xzf stringtie-2.1.4.Linux_x86_64.tar.gz
     export PATH=$PATH:/path/stringtie-2.1.6.Linux_x86_64/
 
 
 	
-### **2.3. Install CPAT-plant and LncFinder-plant**
+### **3.3. Install CPAT-plant and LncFinder-plant**
     git clone https://github.com/xuechantian/Plant-LncRNA-pipline.git
 
 
@@ -112,12 +105,12 @@ LncFinder-plant R Package
 	
 	
 	
-### **2.4. Install Diamond**
+### **3.4. Install Diamond**
      conda install -c bioconda diamond
      
      
 
-### **2.5. Install FEELnc**
+### **3.5. Install FEELnc**
     git clone https://github.com/tderrien/FEELnc.git
     export FEELNCPATH=/path/FEELnc/bin/
     export PERL5LIB=$PERL5LIB:/path/FEELnc/lib/
@@ -125,20 +118,20 @@ LncFinder-plant R Package
 
 	
 	
-### **2.6. Install fastp**
+### **3.6. Install fastp**
     conda install -c bioconda fastp	
 	
 	
 	
-## **3. Download Example Data (Soybean Data as an Example)**
+## **4. Download Example Data (Soybean Data as an Example)**
 
 
 
-### **3.1. Genome Assembly and Annotation File**
+### **4.1. Genome Assembly and Annotation File**
     Download the genome assembly fasta file and gff file from Phytozome 13 for Glycine max Wm82.a6.v1
 
 
-### **3.2. Download Transcriptome Sequencing Data**
+### **4.2. Download Transcriptome Sequencing Data**
 Example content of sra.list file
 
 
@@ -159,7 +152,7 @@ Download
 	
 
  
-## **4. Convert sra to fastq**
+## **5. Convert sra to fastq**
     fastq-dump SRR1174214.sra
     fastq-dump SRR1174217.sra
     fastq-dump SRR1174218.sra
@@ -168,7 +161,7 @@ Download
 
 	
 	
-## **5. Data Filtering and Quality Control**
+## **6. Data Filtering and Quality Control**
     fastp -i SRR1174214.fastq -o SRR1174214_clean.fastq 
     fastp -i SRR1174217.fastq -o SRR1174217_clean.fastq 
     fastp -i SRR1174218.fastq -o SRR1174218_clean.fastq 
@@ -176,17 +169,17 @@ Download
     fastp -i SRR1174232.fastq -o SRR1174232_clean.fastq 
 
 
-## **6. Run HISAT2 to map RNA-seq reads to the reference genome**
+## **7. Run HISAT2 to map RNA-seq reads to the reference genome**
 
 
 
-### **6.1. Construct reference genome**
+### **7.1. Construct reference genome**
 
     hisat2-build -p 8 genome.fasta genome.index 
 
 	
 
-### **6.2. Genome alignment with hisat2**
+### **7.2. Genome alignment with hisat2**
 #### **Single-End RNA-seq  (e.g., Soybean)**
 
 
@@ -217,16 +210,16 @@ If the RNA-seq library is not strand-specific, remove  the parameter "--rna-stra
 
 	
 	
-### **6.3. Sort and compress sam files with samtools**
+### **7.3. Sort and compress sam files with samtools**
 
     for i in `cat sra.list`; do samtools view -S -b ${i}.sam | samtools sort -o ${i}.bam; done
 	
 
 	
 
-## **7. Assemble transcripts using StringTie**
+## **8. Assemble transcripts using StringTie**
 
-### **7.1. Format of Glycine_max_longest.gtf**
+### **8.1. Format of Glycine_max_longest.gtf**
     Gm01	phytozomev13	exon 	103572	103594	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2" 
     Gm01	phytozomev13	CDS 	103572	103594	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"
     Gm01	phytozomev13	exon 	103222	103288	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"	
@@ -238,7 +231,7 @@ If the RNA-seq library is not strand-specific, remove  the parameter "--rna-stra
 
 	
 	
-### **7.2. Transcription reconstruction of a single sample**
+### **8.2. Transcription reconstruction of a single sample**
 
 If strand-specific, add the parameter "--rf".
 
@@ -252,7 +245,7 @@ If not strand-specific, remove the parameter "--rf".
     for i in `cat sra.list`; do stringtie  -p 10 -G Glycine_max_longest.gtf -o ${i}.gtf  ${i}.bam; done
 	
 	
-### **7.3. Merge transcripts from multiple samples**	
+### **8.3. Merge transcripts from multiple samples**	
 	stringtie --merge -o merge.gtf  -G Glycine_max_longest.gtf  SRR*.gtf
 	grep 'transcript_id "MSTRG' merge.gtf > candidate_transcript.gtf
 	gffread -w candidate_transcript.fasta -g genome.fasta candidate_transcript.gtf
@@ -260,19 +253,19 @@ If not strand-specific, remove the parameter "--rf".
 
 	
 	
-## **8. LncRNA identification**	
+## **9. LncRNA identification**	
 
 
 
-### **8.1. Remove transcripts shorter than 200 bp and overlapping with known mRNAs**
+### **9.1. Remove transcripts shorter than 200 bp and overlapping with known mRNAs**
 
     FEELnc_filter.pl -i candidate_transcript.gtf -a Glycine_max_longest.gtf --monoex=-1 -s 200 -p 20 > candidate_lncRNA.gtf
     cut -d ";" -f 2 candidate_lncRNA.gtf |sed 's/ transcript_id //g' | sed 's/"//g' | sort -u > candidate_lncRNA.txt
 
 
 	
-### **8.2. Identification of lncRNA with PlantLncBoost**	
-#### **8.2.1. Dependencies**
+### **9.2. Identification of lncRNA with PlantLncBoost**	
+#### **9.2.1. Dependencies**
     Python (>=3.7.3)
     Biopython
     NumPy
@@ -281,7 +274,7 @@ If not strand-specific, remove the parameter "--rf".
     CatBoost
 
 
-#### **8.2.2. run PlantLncBoost**
+#### **9.2.2. run PlantLncBoost**
 
 #### **Feature extraction**
     python PlantLncBoost/Script/Feature_extraction.py -i candidate_transcript.fasta -o PlantLncBoost_feature.csv
@@ -292,7 +285,7 @@ In the second column (Predicted_label) of the result file, 1 represents lncRNA a
     python PlantLncBoost/Script/PlantLncBoost_prediction.py -i PlantLncBoost_feature.csv -m PlantLncBoost/Model/PlantLncBoost_model.cb -t 0.5 -o PlantLncBoost_prediction.csv
     
 	
-### **8.3.  Identification of lncRNA with LncFinder-plant**	
+### **9.3.  Identification of lncRNA with LncFinder-plant**	
 
 R Package
 
@@ -330,7 +323,7 @@ Export results
 
 
 
-### **8.4. Identification of lncRNA with CPAT-plant**
+### **9.4. Identification of lncRNA with CPAT-plant**
 The coding probability (CP) cutoff: 0.46 (CP >=0.46 indicates coding sequence, CP < 0.46 indicates noncoding sequence).
 
     source activate py27
@@ -340,7 +333,7 @@ The coding probability (CP) cutoff: 0.46 (CP >=0.46 indicates coding sequence, C
 
 
 
-### **8.5. Alignment of sequences to the UniProt protein database with diamond**
+### **9.5. Alignment of sequences to the UniProt protein database with diamond**
     wget https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
     gunzip uniprot_sprot.fasta.gz
     diamond makedb --in uniprot_sprot.fasta -d uniprot_out
@@ -349,7 +342,7 @@ The coding probability (CP) cutoff: 0.46 (CP >=0.46 indicates coding sequence, C
 
 
 
-### **8.6. By intersecting the results obtained from the aforementioned steps, a set of high-confidence lncRNAs were obtained**
+### **9.6. By intersecting the results obtained from the aforementioned steps, a set of high-confidence lncRNAs were obtained**
 
 The id of the lncRNA
 
@@ -363,7 +356,7 @@ The lncRNA gtf file
 
   
 	
-## **9. Classify the final set of lncRNAs based on their genomic locations and sequence features**
+## **10. Classify the final set of lncRNAs based on their genomic locations and sequence features**
 Classification result file
 
 	FEELnc_classifier.pl -i lncRNA.gtf -a Glycine_max_longest.gtf > lncRNA_classes.txt
@@ -401,7 +394,7 @@ Bidirectional-lncRNA
 	
 	
 	
-## **10. TE-derived lncRNAs**
+## **11. TE-derived lncRNAs**
 cat TE.bed
 
 	Chr1    15827287        15838845        LTR_Gypsy
