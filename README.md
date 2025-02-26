@@ -1,9 +1,13 @@
 # Plant-LncRNA-pipeline-v2
+A pipeline for identifying and characterizing lncRNAs in plants.
 
 ![LncRNA pipline-V2](https://github.com/xuechantian/Plant-LncRNA-pipeline-v2/blob/master/Plant-LncPipeV2.workflow.png) 
 
 
 
+**Contact Information:**  
+- Email: xuechan.tian@bjfu.edu.cn  
+- Email: jianfeng.mao@umu.se
 
 
 # **Plant-LncPipe-v2**
