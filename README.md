@@ -28,7 +28,7 @@ A pipeline for identifying and characterizing lncRNAs in plants.
 - [6. Run HISAT2 for RNA-seq Mapping](#6-run-hisat2-for-rna-seq-mapping)
 - [7. Transcript Assembly with StringTie](#7-transcript-assembly-with-stringtie)
 - [8. LncRNA Identification](#8-lncrna-identification)
-  - [8.1. Remove Short Transcripts](#81-remove-short-transcripts)
+  - [8.1. Remove transcripts shorter than 200 bp and overlapping with known mRNAs](#81-remove-short-transcripts)
   - [8.2. Identification Using PlantLncBoost](#82-identification-using-plantlncboost)
   - [8.3. Identification Using LncFinder-plant](#83-identification-using-lncfinder-plant)
   - [8.4. Identification Using CPAT-plant](#84-identification-using-cpat-plant)
@@ -125,11 +125,11 @@ LncFinder-plant R Package
 
 
 
-### 4.1. Genome Assembly and Annotation File
+### Genome Assembly and Annotation File
     Download the genome assembly fasta file and gff file from Phytozome 13 for Glycine max Wm82.a6.v1
 
 
-### 4.2. Download Transcriptome Sequencing Data
+### Download Transcriptome Sequencing Data
 Example content of sra.list file
 
 
@@ -150,7 +150,9 @@ Download
 	
 
  
-## 5. Convert sra to fastq
+## 5. Data Processing
+
+### 5.1. Convert SRA to FASTQ
     fastq-dump SRR1174214.sra
     fastq-dump SRR1174217.sra
     fastq-dump SRR1174218.sra
@@ -159,7 +161,7 @@ Download
 
 	
 	
-## 6. Data Filtering and Quality Control
+### 5.2. Data Filtering and Quality Control
     fastp -i SRR1174214.fastq -o SRR1174214_clean.fastq 
     fastp -i SRR1174217.fastq -o SRR1174217_clean.fastq 
     fastp -i SRR1174218.fastq -o SRR1174218_clean.fastq 
@@ -167,17 +169,17 @@ Download
     fastp -i SRR1174232.fastq -o SRR1174232_clean.fastq 
 
 
-## 7. Run HISAT2 to map RNA-seq reads to the reference genome
+## 6. Run HISAT2 for RNA-seq Mapping
 
 
 
-### 7.1. Construct reference genome
+### Construct reference genome
 
     hisat2-build -p 8 genome.fasta genome.index 
 
 	
 
-### 7.2. Genome alignment with hisat2
+### Genome alignment with hisat2
 #### Single-End RNA-seq  (e.g., Soybean)
 
 
@@ -208,16 +210,16 @@ If the RNA-seq library is not strand-specific, remove  the parameter "--rna-stra
 
 	
 	
-### 7.3. Sort and compress sam files with samtools
+### Sort and compress sam files with samtools
 
     for i in `cat sra.list`; do samtools view -S -b ${i}.sam | samtools sort -o ${i}.bam; done
 	
 
 	
 
-## 8. Assemble transcripts using StringTie
+## 7. Transcript Assembly with StringTie
 
-### 8.1. Format of Glycine_max_longest.gtf
+### Format of Glycine_max_longest.gtf
     Gm01	phytozomev13	exon 	103572	103594	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2" 
     Gm01	phytozomev13	CDS 	103572	103594	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"
     Gm01	phytozomev13	exon 	103222	103288	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"	
@@ -229,7 +231,7 @@ If the RNA-seq library is not strand-specific, remove  the parameter "--rna-stra
 
 	
 	
-### 8.2. Transcription reconstruction of a single sample
+### Transcription reconstruction of a single sample
 
 If strand-specific, add the parameter "--rf".
 
@@ -243,7 +245,7 @@ If not strand-specific, remove the parameter "--rf".
     for i in `cat sra.list`; do stringtie  -p 10 -G Glycine_max_longest.gtf -o ${i}.gtf  ${i}.bam; done
 	
 	
-### 8.3. Merge transcripts from multiple samples
+### Merge transcripts from multiple samples
 	stringtie --merge -o merge.gtf  -G Glycine_max_longest.gtf  SRR*.gtf
 	grep 'transcript_id "MSTRG' merge.gtf > candidate_transcript.gtf
 	gffread -w candidate_transcript.fasta -g genome.fasta candidate_transcript.gtf
@@ -251,19 +253,19 @@ If not strand-specific, remove the parameter "--rf".
 
 	
 	
-## 9. LncRNA identification
+## 8. LncRNA Identification
 
 
 
-### 9.1. Remove transcripts shorter than 200 bp and overlapping with known mRNAs
+### 8.1. Remove transcripts shorter than 200 bp and overlapping with known mRNAs
 
     FEELnc_filter.pl -i candidate_transcript.gtf -a Glycine_max_longest.gtf --monoex=-1 -s 200 -p 20 > candidate_lncRNA.gtf
     cut -d ";" -f 2 candidate_lncRNA.gtf |sed 's/ transcript_id //g' | sed 's/"//g' | sort -u > candidate_lncRNA.txt
 
 
 	
-### 9.2. Identification of lncRNA with PlantLncBoost
-#### 9.2.1. Dependencies
+### 8.2. Identification Using PlantLncBoost
+#### Dependencies
     Python (>=3.7.3)
     Biopython
     NumPy
@@ -272,7 +274,7 @@ If not strand-specific, remove the parameter "--rf".
     CatBoost
 
 
-#### 9.2.2. run PlantLncBoost
+#### run PlantLncBoost
 
 #### Feature extraction
     python PlantLncBoost/Script/Feature_extraction.py -i candidate_transcript.fasta -o PlantLncBoost_feature.csv
@@ -283,7 +285,7 @@ In the second column (Predicted_label) of the result file, 1 represents lncRNA a
     python PlantLncBoost/Script/PlantLncBoost_prediction.py -i PlantLncBoost_feature.csv -m PlantLncBoost/Model/PlantLncBoost_model.cb -t 0.5 -o PlantLncBoost_prediction.csv
     
 	
-### 9.3.  Identification of lncRNA with LncFinder-plant
+### 8.3.  Identification Using LncFinder-plant
 
 R Package
 
@@ -321,7 +323,7 @@ Export results
 
 
 
-### 9.4. Identification of lncRNA with CPAT-plant
+### 8.4. Identification Using CPAT-plant
 The coding probability (CP) cutoff: 0.46 (CP >=0.46 indicates coding sequence, CP < 0.46 indicates noncoding sequence).
 
     source activate py27
@@ -331,7 +333,7 @@ The coding probability (CP) cutoff: 0.46 (CP >=0.46 indicates coding sequence, C
 
 
 
-### 9.5. Alignment of sequences to the UniProt protein database with diamond
+### 8.5. Alignment with UniProt using Diamond
     wget https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
     gunzip uniprot_sprot.fasta.gz
     diamond makedb --in uniprot_sprot.fasta -d uniprot_out
@@ -340,7 +342,7 @@ The coding probability (CP) cutoff: 0.46 (CP >=0.46 indicates coding sequence, C
 
 
 
-### 9.6. By intersecting the results obtained from the aforementioned steps, a set of high-confidence lncRNAs were obtained
+### 8.6. By intersecting the results obtained from the aforementioned steps, a set of high-confidence lncRNAs were obtained
 
 The id of the lncRNA
 
@@ -354,7 +356,7 @@ The lncRNA gtf file
 
   
 	
-## 10. Classify the final set of lncRNAs based on their genomic locations and sequence features
+## 9. Classifying LncRNAs Based on Genomic Location
 Classification result file
 
 	FEELnc_classifier.pl -i lncRNA.gtf -a Glycine_max_longest.gtf > lncRNA_classes.txt
@@ -392,7 +394,7 @@ Bidirectional-lncRNA
 	
 	
 	
-## 11. TE-derived lncRNAs
+## 10. TE-derived LncRNAs
 cat TE.bed
 
 	Chr1    15827287        15838845        LTR_Gypsy
@@ -416,7 +418,12 @@ TE-lncRNA
 	bedtools intersect -a lncRNA.bed -b TE.bed -wo | sort -u | awk '{print $1,$2,$3,$4,$6,$7,$8,$9}' | sed 's/ /\t/g' | sed '1iChr\tLncRNA_start\tLncRNA_end\tLncRNA_ID\tTE_start\tTE_end\tTE_ID\tOverlap' > TE_lncRNA_intersect.txt 
 	
 	
-	
+## 11. Citations
+If you use Plant-LncPipe-V2, please cite:
+
+Xue-Chan Tian, et al. (2025). , et al. (2025). PlantLncBoost: A Machine Learning Based Model for Plant Long Non-coding RNA Identification. 
+
+
 	
 	
 	
