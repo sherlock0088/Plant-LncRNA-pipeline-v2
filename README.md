@@ -65,7 +65,7 @@ Plant-LncPipe-v2 is a comprehensive pipeline designed to identify and characteri
 
 
 
-## 3.Installation
+## 3. Installation
 
 
 
