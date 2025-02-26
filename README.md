@@ -17,11 +17,10 @@ A pipeline for identifying and characterizing lncRNAs in plants.
 - [3. Installation](#3-Installation)
   - [3.1. Install HISAT2](#31-install-hisat2)
   - [3.2. Install StringTie](#32-install-stringtie)
-  - [3.3. Install PlantLncBoost](#33-install-plantlncboost)
-  - [3.4. Install CPAT-plant and LncFinder-plant](#34-install-cpat-plant-and-lncfinder-plant)
-  - [3.5. Install Diamond](#35-install-diamond)
-  - [3.6. Install FEELnc](#36-install-feelnc)
-  - [3.7. Install fastp](#37-install-fastp)
+  - [3.3. Install CPAT and LncFinder](#34-install-cpat-and-lncfinder)
+  - [3.4. Install Diamond](#35-install-diamond)
+  - [3.5. Install FEELnc](#36-install-feelnc)
+  - [3.6. Install fastp](#37-install-fastp)
 - [4. Download Example Data](#4-download-example-data)
 - [5. Data Processing](#5-data-processing)
   - [5.1. Convert SRA to FASTQ](#51-convert-sra-to-fastq)
@@ -69,21 +68,21 @@ Plant-LncPipe-v2 is a comprehensive pipeline designed to identify and characteri
 
 
 
-### **3.1. Install HISAT2**
+### 3.1. Install HISAT2**
     git clone https://github.com/DaehwanKimLab/hisat2.git
     cd hisat2
     make
 
 
 
-### **3.2. Install StringTie**
+### 3.2. Install StringTie
     wget https://github.com/gpertea/stringtie/releases/download/v2.1.4/stringtie-2.1.4.Linux_x86_64.tar.gz
     tar xzf stringtie-2.1.4.Linux_x86_64.tar.gz
     export PATH=$PATH:/path/stringtie-2.1.6.Linux_x86_64/
 
 
 	
-### **3.3. Install CPAT-plant and LncFinder-plant**
+### 3.3. Install CPAT and LncFinder
     git clone https://github.com/xuechantian/Plant-LncRNA-pipline.git
 
 
@@ -104,12 +103,12 @@ LncFinder-plant R Package
 	
 	
 	
-### **3.4. Install Diamond**
+### 3.4. Install Diamond
      conda install -c bioconda diamond
      
      
 
-### **3.5. Install FEELnc**
+### 3.5. Install FEELnc
     git clone https://github.com/tderrien/FEELnc.git
     export FEELNCPATH=/path/FEELnc/bin/
     export PERL5LIB=$PERL5LIB:/path/FEELnc/lib/
@@ -117,20 +116,20 @@ LncFinder-plant R Package
 
 	
 	
-### **3.6. Install fastp**
+### 3.6. Install fastp
     conda install -c bioconda fastp	
 	
 	
 	
-## **4. Download Example Data (Soybean Data as an Example)**
+## 4. Download Example Data (Soybean Data as an Example)
 
 
 
-### **4.1. Genome Assembly and Annotation File**
+### 4.1. Genome Assembly and Annotation File
     Download the genome assembly fasta file and gff file from Phytozome 13 for Glycine max Wm82.a6.v1
 
 
-### **4.2. Download Transcriptome Sequencing Data**
+### 4.2. Download Transcriptome Sequencing Data
 Example content of sra.list file
 
 
@@ -151,7 +150,7 @@ Download
 	
 
  
-## **5. Convert sra to fastq**
+## 5. Convert sra to fastq
     fastq-dump SRR1174214.sra
     fastq-dump SRR1174217.sra
     fastq-dump SRR1174218.sra
@@ -160,7 +159,7 @@ Download
 
 	
 	
-## **6. Data Filtering and Quality Control**
+## 6. Data Filtering and Quality Control
     fastp -i SRR1174214.fastq -o SRR1174214_clean.fastq 
     fastp -i SRR1174217.fastq -o SRR1174217_clean.fastq 
     fastp -i SRR1174218.fastq -o SRR1174218_clean.fastq 
@@ -168,18 +167,18 @@ Download
     fastp -i SRR1174232.fastq -o SRR1174232_clean.fastq 
 
 
-## **7. Run HISAT2 to map RNA-seq reads to the reference genome**
+## 7. Run HISAT2 to map RNA-seq reads to the reference genome
 
 
 
-### **7.1. Construct reference genome**
+### 7.1. Construct reference genome
 
     hisat2-build -p 8 genome.fasta genome.index 
 
 	
 
-### **7.2. Genome alignment with hisat2**
-#### **Single-End RNA-seq  (e.g., Soybean)**
+### 7.2. Genome alignment with hisat2
+#### Single-End RNA-seq  (e.g., Soybean)
 
 
 If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF".
@@ -194,7 +193,7 @@ If the RNA-seq library is not strand-specific, remove  the parameter "--rna-stra
     for i in `cat sra.list`; do hisat2 --new-summary -p 10 -x genome.index ${i}_clean.fastq -S ${i}.sam; done
 
 	
-#### **Paired-End RNA-seq**
+#### Paired-End RNA-seq
 
 
  If the RNA-seq library is strand-specific, add the parameter "--rna-strandness RF".
@@ -209,16 +208,16 @@ If the RNA-seq library is not strand-specific, remove  the parameter "--rna-stra
 
 	
 	
-### **7.3. Sort and compress sam files with samtools**
+### 7.3. Sort and compress sam files with samtools
 
     for i in `cat sra.list`; do samtools view -S -b ${i}.sam | samtools sort -o ${i}.bam; done
 	
 
 	
 
-## **8. Assemble transcripts using StringTie**
+## 8. Assemble transcripts using StringTie
 
-### **8.1. Format of Glycine_max_longest.gtf**
+### 8.1. Format of Glycine_max_longest.gtf
     Gm01	phytozomev13	exon 	103572	103594	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2" 
     Gm01	phytozomev13	CDS 	103572	103594	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"
     Gm01	phytozomev13	exon 	103222	103288	transcript_id "Glyma.01G000100.2"; gene_id "Glyma.01G000100.2"	
@@ -230,7 +229,7 @@ If the RNA-seq library is not strand-specific, remove  the parameter "--rna-stra
 
 	
 	
-### **8.2. Transcription reconstruction of a single sample**
+### 8.2. Transcription reconstruction of a single sample
 
 If strand-specific, add the parameter "--rf".
 
@@ -244,7 +243,7 @@ If not strand-specific, remove the parameter "--rf".
     for i in `cat sra.list`; do stringtie  -p 10 -G Glycine_max_longest.gtf -o ${i}.gtf  ${i}.bam; done
 	
 	
-### **8.3. Merge transcripts from multiple samples**	
+### 8.3. Merge transcripts from multiple samples
 	stringtie --merge -o merge.gtf  -G Glycine_max_longest.gtf  SRR*.gtf
 	grep 'transcript_id "MSTRG' merge.gtf > candidate_transcript.gtf
 	gffread -w candidate_transcript.fasta -g genome.fasta candidate_transcript.gtf
@@ -252,7 +251,7 @@ If not strand-specific, remove the parameter "--rf".
 
 	
 	
-## **9. LncRNA identification**	
+## **9. LncRNA identification
 
 
 
