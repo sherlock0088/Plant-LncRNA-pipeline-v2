@@ -274,7 +274,7 @@ If not strand-specific, remove the parameter "--rf".
     CatBoost
 
 
-### run PlantLncBoost
+### Run PlantLncBoost
 
 #### Feature extraction
     python PlantLncBoost/Script/Feature_extraction.py -i candidate_transcript.fasta -o PlantLncBoost_feature.csv
