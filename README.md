@@ -17,10 +17,10 @@ A pipeline for identifying and characterizing lncRNAs in plants.
 - [3. Installation](#3-Installation)
   - [3.1. Install HISAT2](#31-install-hisat2)
   - [3.2. Install StringTie](#32-install-stringtie)
-  - [3.3. Install CPAT and LncFinder](#34-install-cpat-and-lncfinder)
-  - [3.4. Install Diamond](#35-install-diamond)
-  - [3.5. Install FEELnc](#36-install-feelnc)
-  - [3.6. Install fastp](#37-install-fastp)
+  - [3.3. Install CPAT and LncFinder](#33-install-cpat-and-lncfinder)
+  - [3.4. Install Diamond](#34-install-diamond)
+  - [3.5. Install FEELnc](#35-install-feelnc)
+  - [3.6. Install fastp](#36-install-fastp)
 - [4. Download Example Data](#4-download-example-data)
 - [5. Data Processing](#5-data-processing)
   - [5.1. Convert SRA to FASTQ](#51-convert-sra-to-fastq)
@@ -251,19 +251,19 @@ If not strand-specific, remove the parameter "--rf".
 
 	
 	
-## **9. LncRNA identification
+## 9. LncRNA identification
 
 
 
-### **9.1. Remove transcripts shorter than 200 bp and overlapping with known mRNAs**
+### 9.1. Remove transcripts shorter than 200 bp and overlapping with known mRNAs
 
     FEELnc_filter.pl -i candidate_transcript.gtf -a Glycine_max_longest.gtf --monoex=-1 -s 200 -p 20 > candidate_lncRNA.gtf
     cut -d ";" -f 2 candidate_lncRNA.gtf |sed 's/ transcript_id //g' | sed 's/"//g' | sort -u > candidate_lncRNA.txt
 
 
 	
-### **9.2. Identification of lncRNA with PlantLncBoost**	
-#### **9.2.1. Dependencies**
+### 9.2. Identification of lncRNA with PlantLncBoost
+#### 9.2.1. Dependencies
     Python (>=3.7.3)
     Biopython
     NumPy
@@ -272,18 +272,18 @@ If not strand-specific, remove the parameter "--rf".
     CatBoost
 
 
-#### **9.2.2. run PlantLncBoost**
+#### 9.2.2. run PlantLncBoost
 
-#### **Feature extraction**
+#### Feature extraction
     python PlantLncBoost/Script/Feature_extraction.py -i candidate_transcript.fasta -o PlantLncBoost_feature.csv
 	
-#### **LncRNA prediction**
+#### LncRNA prediction
 In the second column (Predicted_label) of the result file, 1 represents lncRNA and 0 represents mRNA.
 
     python PlantLncBoost/Script/PlantLncBoost_prediction.py -i PlantLncBoost_feature.csv -m PlantLncBoost/Model/PlantLncBoost_model.cb -t 0.5 -o PlantLncBoost_prediction.csv
     
 	
-### **9.3.  Identification of lncRNA with LncFinder-plant**	
+### 9.3.  Identification of lncRNA with LncFinder-plant
 
 R Package
 
@@ -321,7 +321,7 @@ Export results
 
 
 
-### **9.4. Identification of lncRNA with CPAT-plant**
+### 9.4. Identification of lncRNA with CPAT-plant
 The coding probability (CP) cutoff: 0.46 (CP >=0.46 indicates coding sequence, CP < 0.46 indicates noncoding sequence).
 
     source activate py27
@@ -331,7 +331,7 @@ The coding probability (CP) cutoff: 0.46 (CP >=0.46 indicates coding sequence, C
 
 
 
-### **9.5. Alignment of sequences to the UniProt protein database with diamond**
+### 9.5. Alignment of sequences to the UniProt protein database with diamond
     wget https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
     gunzip uniprot_sprot.fasta.gz
     diamond makedb --in uniprot_sprot.fasta -d uniprot_out
@@ -340,7 +340,7 @@ The coding probability (CP) cutoff: 0.46 (CP >=0.46 indicates coding sequence, C
 
 
 
-### **9.6. By intersecting the results obtained from the aforementioned steps, a set of high-confidence lncRNAs were obtained**
+### 9.6. By intersecting the results obtained from the aforementioned steps, a set of high-confidence lncRNAs were obtained
 
 The id of the lncRNA
 
@@ -354,7 +354,7 @@ The lncRNA gtf file
 
   
 	
-## **10. Classify the final set of lncRNAs based on their genomic locations and sequence features**
+## 10. Classify the final set of lncRNAs based on their genomic locations and sequence features
 Classification result file
 
 	FEELnc_classifier.pl -i lncRNA.gtf -a Glycine_max_longest.gtf > lncRNA_classes.txt
@@ -392,7 +392,7 @@ Bidirectional-lncRNA
 	
 	
 	
-## **11. TE-derived lncRNAs**
+## 11. TE-derived lncRNAs
 cat TE.bed
 
 	Chr1    15827287        15838845        LTR_Gypsy
