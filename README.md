@@ -10,11 +10,43 @@ A pipeline for identifying and characterizing lncRNAs in plants.
 - Email: jianfeng.mao@umu.se
 
 
-# **Plant-LncPipe-v2**
+## Table of Contents
+
+- [1. Introduction](#1-introduction)
+- [2. Dependencies](#2-dependencies)
+- [3. Installation](#3-installation)
+  - [3.1. Install HISAT2](#31-install-hisat2)
+  - [3.2. Install StringTie](#32-install-stringtie)
+  - [3.3. Install PlantLncBoost](#33-install-plantlncboost)
+  - [3.4. Install CPAT-plant and LncFinder-plant](#34-install-cpat-plant-and-lncfinder-plant)
+  - [3.5. Install Diamond](#35-install-diamond)
+  - [3.6. Install FEELnc](#36-install-feelnc)
+  - [3.7. Install fastp](#37-install-fastp)
+- [4. Download Example Data](#4-download-example-data)
+- [5. Data Processing](#5-data-processing)
+  - [5.1. Convert SRA to FASTQ](#51-convert-sra-to-fastq)
+  - [5.2. Data Filtering and Quality Control](#52-data-filtering-and-quality-control)
+- [6. Run HISAT2 for RNA-seq Mapping](#6-run-hisat2-for-rna-seq-mapping)
+- [7. Transcript Assembly with StringTie](#7-transcript-assembly-with-stringtie)
+- [8. LncRNA Identification](#8-lncrna-identification)
+  - [8.1. Remove Short Transcripts](#81-remove-short-transcripts)
+  - [8.2. Identification Using PlantLncBoost](#82-identification-using-plantlncboost)
+  - [8.3. Identification Using LncFinder-plant](#83-identification-using-lncfinder-plant)
+  - [8.4. Identification Using CPAT-plant](#84-identification-using-cpat-plant)
+  - [8.5. Alignment with UniProt using Diamond](#85-alignment-with-uniprot-using-diamond)
+- [9. Classifying LncRNAs Based on Genomic Location](#9-classifying-lncrnas-based-on-genomic-location)
+- [10. TE-derived LncRNAs](#10-te-derived-lncrnas)
+- [11. Citations](#11-citations)
 
 
 
+---
 
+## 1. Introduction
+
+Plant-LncPipe-v2 is a comprehensive pipeline designed to identify and characterize long non-coding RNAs (lncRNAs) in plants. It integrates multiple tools for RNA-seq alignment, transcript assembly, and lncRNA prediction, providing an efficient and reproducible workflow for plant lncRNA studies.
+
+---
 
 ### **An enhanced pipeline (pipline V2) for identifying and characterizing lncRNAs in plants..**
 
