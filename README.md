@@ -12,9 +12,9 @@ A pipeline for identifying and characterizing lncRNAs in plants.
 
 ## Table of Contents
 
-- [1. Introduction](#1-introduction)
-- [2. Dependencies](#2-dependencies)
-- [3. Installation](#3-installation)
+- [1. Introduction](#1-Introduction)
+- [2. Dependencies](#2-Dependencies)
+- [3. Installation](#3-Installation)
   - [3.1. Install HISAT2](#31-install-hisat2)
   - [3.2. Install StringTie](#32-install-stringtie)
   - [3.3. Install PlantLncBoost](#33-install-plantlncboost)
@@ -52,7 +52,7 @@ Plant-LncPipe-v2 is a comprehensive pipeline designed to identify and characteri
 
 
 
-## **2. Dependencies** 
+## 2. Dependencies** 
 
 
 
@@ -66,7 +66,7 @@ Plant-LncPipe-v2 is a comprehensive pipeline designed to identify and characteri
 
 
 
-## **3.Installation**
+## 3.Installation**
 
 
 
