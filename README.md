@@ -287,7 +287,7 @@ If not strand-specific, remove the parameter "--rf".
     CatBoost
 
 ### Install via conda
-#### Create and activate a conda environment (optional)
+#### Create and activate a conda environment
     conda create -n lncrna_env python=3.7.3
     conda activate lncrna_env
 #### Install core dependencies
