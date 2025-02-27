@@ -94,8 +94,6 @@ Plant-LncPipe-v2 consists of four main modules:
     export PATH=$PATH:/path/stringtie-2.1.6.Linux_x86_64/
 	
 ### 3.4. Install CPAT and LncFinder
-    git clone https://github.com/xuechantian/Plant-LncRNA-pipline.git
-
 
 CPAT (version 1.2.4)
 
