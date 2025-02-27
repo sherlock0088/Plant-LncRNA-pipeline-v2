@@ -81,7 +81,7 @@ Plant-LncPipe-v2 consists of four main modules:
 
 
 
-### 3.1. Install HISAT2**
+### 3.1. Install HISAT2
     git clone https://github.com/DaehwanKimLab/hisat2.git
     cd hisat2
     make
@@ -278,13 +278,20 @@ If not strand-specific, remove the parameter "--rf".
 
 	
 ### 8.2. Identification Using PlantLncBoost
-### Dependencies
+### Dependency 
     Python (>=3.7.3)
     Biopython
     NumPy
     Pandas
     SciPy
     CatBoost
+
+### Install via conda
+#### Create and activate a conda environment (optional)
+    conda create -n lncrna_env python=3.7.3
+    conda activate lncrna_env
+#### Install core dependencies
+    conda install -c conda-forge biopython numpy pandas scipy catboost
 
 
 ### Run PlantLncBoost
