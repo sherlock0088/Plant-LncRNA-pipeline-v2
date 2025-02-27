@@ -48,9 +48,22 @@ Plant-LncPipe-v2 is a comprehensive pipeline designed to identify and characteri
 ---
 
 
+### Updates in v2
 
+Plant-LncPipe-v2 incorporates the following major improvements over the previous version:
 
+- Integration of PlantLncBoost, our new CatBoost-based machine learning model specifically optimized for plant lncRNA identification
+- Enhanced prediction accuracy across diverse plant species
 
+### Workflow
+
+Plant-LncPipe-v2 consists of four main modules:
+
+1. **Raw Data Preprocessing**: Quality control, adapter trimming, and sequence filtering
+2. **Transcript Assembly**: Reference-guided assembly of transcripts from RNA-seq data
+3. **lncRNA Identification**: Prediction using PlantLncBoost (featuring CPAT-plant and LncFinder-plant)
+4. **lncRNA Classification and Characterization**: Categorization and analysis of identified lncRNAs
+5. 
 ## 2. Dependencies
 
 
