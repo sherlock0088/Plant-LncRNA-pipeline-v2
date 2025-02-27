@@ -60,7 +60,7 @@ Plant-LncPipe-v2 consists of four main modules:
 
 1. **Raw Data Preprocessing**: Quality control, adapter trimming, and sequence filtering
 2. **Transcript Assembly**: Reference-guided assembly of transcripts from RNA-seq data
-3. **lncRNA Identification**: Prediction using PlantLncBoost (featuring CPAT-plant and LncFinder-plant)
+3. **lncRNA Identification**: Prediction using PlantLncBoost, CPAT-plant and LncFinder-plant
 4. **lncRNA Classification and Characterization**: Categorization and analysis of identified lncRNAs
 
 
