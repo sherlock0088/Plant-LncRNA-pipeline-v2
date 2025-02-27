@@ -279,7 +279,7 @@ If not strand-specific, remove the parameter "--rf".
 	
 ### 8.2. Identification Using PlantLncBoost
 ### Dependency 
-    Python (>=3.7.3)
+    Python (>=3.7)
     Biopython
     NumPy
     Pandas
@@ -288,7 +288,7 @@ If not strand-specific, remove the parameter "--rf".
 
 ### Install via conda
 #### Create and activate a conda environment
-    conda create -n lncrna_env python=3.7.3
+    conda create -n lncrna_env python=3.7
     conda activate lncrna_env
 #### Install core dependencies
     conda install -c conda-forge biopython numpy pandas scipy catboost
