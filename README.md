@@ -15,12 +15,13 @@ A pipeline for identifying and characterizing lncRNAs in plants.
 - [1. Introduction](#1-Introduction)
 - [2. Dependencies](#2-Dependencies)
 - [3. Installation](#3-Installation)
-  - [3.1. Install HISAT2](#31-install-hisat2)
-  - [3.2. Install StringTie](#32-install-stringtie)
-  - [3.3. Install CPAT and LncFinder](#33-install-cpat-and-lncfinder)
-  - [3.4. Install Diamond](#34-install-diamond)
-  - [3.5. Install FEELnc](#35-install-feelnc)
-  - [3.6. Install fastp](#36-install-fastp)
+  - [3.1. Install Plant-LncRNA-pipeline-v2](#31-install-Plant-LncRNA-pipeline-v2)
+  - [3.2. Install HISAT2](#31-install-hisat2)
+  - [3.3. Install StringTie](#32-install-stringtie)
+  - [3.4. Install CPAT and LncFinder](#33-install-cpat-and-lncfinder)
+  - [3.5. Install Diamond](#34-install-diamond)
+  - [3.6. Install FEELnc](#35-install-feelnc)
+  - [3.7. Install fastp](#36-install-fastp)
 - [4. Download Example Data](#4-download-example-data)
 - [5. Data Processing](#5-data-processing)
   - [5.1. Convert SRA to FASTQ](#51-convert-sra-to-fastq)
@@ -79,23 +80,20 @@ Plant-LncPipe-v2 consists of four main modules:
 
 ## 3. Installation
 
-
-
-### 3.1. Install HISAT2
+### 3.1. Install Plant-LncRNA-pipeline-v2
+    git clone https://github.com/xuechantian/Plant-LncRNA-pipeline-v2.git
+    
+### 3.2. Install HISAT2
     git clone https://github.com/DaehwanKimLab/hisat2.git
     cd hisat2
     make
 
-
-
-### 3.2. Install StringTie
+### 3.3. Install StringTie
     wget https://github.com/gpertea/stringtie/releases/download/v2.1.4/stringtie-2.1.4.Linux_x86_64.tar.gz
     tar xzf stringtie-2.1.4.Linux_x86_64.tar.gz
     export PATH=$PATH:/path/stringtie-2.1.6.Linux_x86_64/
-
-
 	
-### 3.3. Install CPAT and LncFinder
+### 3.4. Install CPAT and LncFinder
     git clone https://github.com/xuechantian/Plant-LncRNA-pipline.git
 
 
@@ -115,21 +113,18 @@ LncFinder-plant R Package
     install.package("seqinr")
 	
 	
-	
-### 3.4. Install Diamond
+### 3.5. Install Diamond
      conda install -c bioconda diamond
-     
-     
+          
 
-### 3.5. Install FEELnc
+### 3.6. Install FEELnc
     git clone https://github.com/tderrien/FEELnc.git
     export FEELNCPATH=/path/FEELnc/bin/
     export PERL5LIB=$PERL5LIB:/path/FEELnc/lib/
     export PATH=$PATH:/path/FEELnc/scripts/
-
 	
 	
-### 3.6. Install fastp
+### 3.7. Install fastp
     conda install -c bioconda fastp	
 	
 	
