@@ -434,7 +434,7 @@ TE-lncRNA
 ## 11. Citations
 If you use Plant-LncPipe-V2, please cite:
 
- Tian X, et al., et al. (2025). PlantLncBoost: A machine learning based model for plant long non-coding RNA identification. (under review)
+Tian, X.-C., Nie, S., Domingues, D., Rossi Paschoal, A., Jiang, L.-B. and Mao, J.-F. (2025), PlantLncBoost: key features for plant lncRNA identification and significant improvement in accuracy and generalization. New Phytol. https://doi.org/10.1111/nph.70211
 
 
 	
